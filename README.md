@@ -97,10 +97,10 @@ AdventureBot consists of the following core components:
 
 This component encapsulates your custom TensorFlow model. The model can be trained and fine-tuned on new data collected from user interactions or other sources. It has methods for loading and saving model checkpoints, generating responses, evaluating model performance, and querying ChatGPT when necessary.
 
-## Active Selection
+#### Active Selection
 The YourTensorFlowModel class in tf_model.py has been updated to include active selection logic. This logic selects the best response from previous turns based on the chatbot model's score.
 
-## Game-Related Responses
+#### Game-Related Responses
 The YourTensorFlowModel class in tf_model.py has also been updated to include game-related responses. If the user wants to play a game, the chatbot generates a game-related response using the generate_game_response() method.
 
 ### NLP Model (nlp_model.py)
