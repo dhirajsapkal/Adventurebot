@@ -7,11 +7,72 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>AI Chatbot</h1>
+    </header>
     <div id="chat-container">
         <div id="messages"></div>
         <input id="user-input" type="text" placeholder="Type a message...">
         <button onclick="sendMessage()">Send</button>
     </div>
     <script src="script.js"></script>
+    <script>
+        function sendMessage() {
+            // Get the user input
+            var userInput = document.getElementById("user-input").value;
+
+            // Clear the user input field
+            document.getElementById("user-input").value = "";
+
+            // Create a new message element
+            var message = document.createElement("div");
+            message.classList.add("message", "sent");
+            message.textContent = userInput;
+
+            // Add the message to the chat container
+            document.getElementById("messages").appendChild(message);
+
+            // Send the user input to the chatbot API
+            fetch("/api/chatbot", {
+                method: "POST",
+                body: JSON.stringify({ message: userInput }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Create a new message element for the chatbot response
+                var message = document.createElement("div");
+                message.classList.add("message", "received");
+
+                // Add an indicator for the AI that generated the response
+                var aiIndicator = document.createElement("span");
+                aiIndicator.classList.add("ai-indicator");
+                if (data.ai === "gpt") {
+                    aiIndicator.classList.add("gpt");
+                } else if (data.ai === "tensor") {
+                    aiIndicator.classList.add("tensor");
+                }
+                message.appendChild(aiIndicator);
+
+                // Add an indicator for when Adventurebot is learning
+                if (data.learning) {
+                    aiIndicator.classList.add("learning");
+                }
+
+                // Add the chatbot response to the message element
+                var response = document.createElement("span");
+                response.textContent = data.message;
+                message.appendChild(response);
+
+                // Add the message to the chat container
+                document.getElementById("messages").appendChild(message);
+            })
+            .catch(error => {
+                console.error("Error sending message:", error);
+            });
+        }
+    </script>
 </body>
 </html>

@@ -1,30 +1,144 @@
+/* Set default font family and background color */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
 }
 
+/* Center the chat container vertically and horizontally */
 #chat-container {
     background-color: #fff;
     border: 1px solid #ccc;
-    padding: 20px;
-    width: 300px;
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 2em auto;
+    max-width: 30em;
+    padding: 1em;
 }
 
+/* Add a header with a title for the chatbot */
+#chat-header {
+    background-color: #007aff;
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    padding: 0.5em 1em;
+    text-align: center;
+}
+
+/* Style the chat messages */
 #messages {
     max-height: 300px;
     overflow-y: auto;
-    margin-bottom: 10px;
+    margin-bottom: 1em;
 }
 
+.message {
+    background-color: #f0f0f0;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    margin-bottom: 0.5em;
+    position: relative;
+}
+
+.message.sent {
+    background-color: #007aff;
+    color: #fff;
+}
+
+.message.sent::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -1em;
+    transform: translateY(-50%);
+    border-top: 0.5em solid transparent;
+    border-left: 0.5em solid #007aff;
+    border-bottom: 0.5em solid transparent;
+}
+
+.message.received {
+    background-color: #fff;
+    color: #333;
+}
+
+.message.received::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -1em;
+    transform: translateY(-50%);
+    border-top: 0.5em solid transparent;
+    border-right: 0.5em solid #f0f0f0;
+    border-bottom: 0.5em solid transparent;
+}
+
+.message.received .ai-indicator {
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.message.received .ai-indicator.gpt {
+    background-image: url("gpt-icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1em;
+    height: 1em;
+}
+
+.message.received .ai-indicator.tensor {
+    background-image: url("tensor-icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1em;
+    height: 1em;
+}
+
+/* Style the learning indicator */
+.message.received .ai-indicator.learning {
+    background-image: url("learning-icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1em;
+    height: 1em;
+    animation: learning 1s infinite;
+}
+
+@keyframes learning {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Style the user input field and send button */
 #user-input {
-    width: 80%;
-    padding: 10px;
+    background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+    margin-right: 0.5em;
+    padding: 0.5em;
+    width: 100%;
+}
+
+#send-button {
+    background-color: #007aff;
+    border: none;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0.5em 1em;
+    transition: box-shadow 0.2s ease-out;
+}
+
+#send-button:hover,
+#send-button:focus {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(-0.1em);
 }

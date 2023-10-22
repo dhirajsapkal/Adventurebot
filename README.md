@@ -5,13 +5,29 @@ AdventureBot is a self-improving AI chatbot project aimed at building a TensorFl
 ## Directory Structure
 
 ```plaintext
-- server/
-    - nlu/
-        - nlp_model.py      # NLP Processing and Model Selection Logic
-        - tf_model.py       # TensorFlow Model Definition and Training Logic
-    - memory/
-        - memory_manager.py # Memory Management Logic
-- automated_training.py     # Script for Periodic Training
+my_project/
+├─ server/
+│  ├─ api/
+│  │  ├─ __init__.py
+│  │  └─ routes.py
+│  ├─ config/
+│  │  └─ config.py
+│  ├─ nlu/
+│  │  └─ nlp_model.py
+│  ├─ memory/
+│  │  └─ memory_manager.py
+│  ├─ tests/
+│  ├─ logs/
+│  ├─ __init__.py
+│  ├─ app.py
+│  └─ requirements.txt
+├─ frontend1/
+│  ├─ index.html
+│  ├─ style.css
+│  └─ script.js
+├─ README.md
+└─ LICENSE
+
 ```
 
 
