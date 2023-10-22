@@ -2,7 +2,16 @@
 
 AdventureBot is a self-improving AI chatbot project aimed at building a TensorFlow-based model that continuously learns and improves over time with an ability to retain memory across interactions. It integrates ChatGPT for enhanced NLP capabilities, especially in the early stages of the project.
 
-## Changelog 0.01
+### Changelog 
+#### v0.02
+- Added support for multiple languages in the NLP model.
+- Improved memory retention by implementing a more efficient memory manager.
+- Added unit tests for the Flask app.
+- Updated the README.md file to include a changelog section to mention all the updates made recently.
+- Implemented the collect_new_data() and get_new_data() methods in the MemoryManager class to collect and retrieve new data for training the TensorFlow model.
+- Added a method to the MemoryManager class for retrieving the training status of the TensorFlow model from memory.
+- Added error handling to the _save_memory() method in the MemoryManager class to handle cases where the memory file cannot be saved.
+#### v0.01
 - Updated the YourTensorFlowModel class to remove game-specific modifications and make the model more generic.
 - Expanded on the confidence calculation logic in the calculate_confidence() method.
 - Expanded on the selection logic in the active_selection() method.
