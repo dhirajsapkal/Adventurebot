@@ -2,6 +2,15 @@
 
 AdventureBot is a self-improving AI chatbot project aimed at building a TensorFlow-based model that continuously learns and improves over time with an ability to retain memory across interactions. It integrates ChatGPT for enhanced NLP capabilities, especially in the early stages of the project.
 
+## Changelog 0.01
+- Updated the YourTensorFlowModel class to remove game-specific modifications and make the model more generic.
+- Expanded on the confidence calculation logic in the calculate_confidence() method.
+- Expanded on the selection logic in the active_selection() method.
+- Added a new active_selection() method to the YourTensorFlowModel class to select the most appropriate response based on the prompt and previous responses.
+- Updated the generate_response() method in the YourTensorFlowModel class to include the new active_selection() method.
+- Updated the nlp_model.py file in the nlu directory to include the new active_selection() method.
+- Updated the README.md file to include a changelogy.
+
 ## Directory Structure
 
 ```plaintext
@@ -99,9 +108,6 @@ This component encapsulates your custom TensorFlow model. The model can be train
 
 #### Active Selection
 The YourTensorFlowModel class in tf_model.py has been updated to include active selection logic. This logic selects the best response from previous turns based on the chatbot model's score.
-
-#### Game-Related Responses
-The YourTensorFlowModel class in tf_model.py has also been updated to include game-related responses. If the user wants to play a game, the chatbot generates a game-related response using the generate_game_response() method.
 
 ### NLP Model (nlp_model.py)
 
