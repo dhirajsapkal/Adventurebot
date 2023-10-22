@@ -38,8 +38,13 @@ class NLPModel:
             memory_update = {}  # Assume no memory update or define logic to update memory
         else:
             # TensorFlow Model Processing
-            response = self.tf_model.generate_response(user_input, memory)
-            memory_update = {}  # Assume no memory update or define logic to update memory
+            response, memory_update = self.tf_model.generate_response(user_input, memory)
+
+            # Active Selection
+            prompt = user_input + " "
+            responses = response.split("\n")
+            active_response = app.config["active_selection"](self.tf_model, prompt, responses)
+            response = active_response.strip()
 
         return response, memory_update
 

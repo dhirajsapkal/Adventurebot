@@ -1,23 +1,23 @@
 /* Set default font family and background color */
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #36393f;
+    color: #fff;
 }
 
 /* Center the chat container vertically and horizontally */
 #chat-container {
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: #2f3136;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 2em auto;
-    max-width: 30em;
-    padding: 1em;
+    max-width: 800px;
+    padding: 0;
 }
 
 /* Add a header with a title for the chatbot */
-#chat-header {
-    background-color: #007aff;
+header {
+    background-color: #7289da;
     color: #fff;
     font-size: 1.5em;
     font-weight: bold;
@@ -30,19 +30,20 @@ body {
 #messages {
     max-height: 300px;
     overflow-y: auto;
-    margin-bottom: 1em;
+    margin-bottom: 0;
+    padding: 1em;
 }
 
 .message {
-    background-color: #f0f0f0;
-    border-radius: 0.5em;
+    background-color: #40444b;
+    border-radius: 8px;
     padding: 0.5em 1em;
     margin-bottom: 0.5em;
     position: relative;
 }
 
 .message.sent {
-    background-color: #007aff;
+    background-color: #7289da;
     color: #fff;
 }
 
@@ -53,13 +54,13 @@ body {
     right: -1em;
     transform: translateY(-50%);
     border-top: 0.5em solid transparent;
-    border-left: 0.5em solid #007aff;
+    border-left: 0.5em solid #7289da;
     border-bottom: 0.5em solid transparent;
 }
 
 .message.received {
-    background-color: #fff;
-    color: #333;
+    background-color: #2f3136;
+    color: #fff;
 }
 
 .message.received::before {
@@ -69,7 +70,7 @@ body {
     left: -1em;
     transform: translateY(-50%);
     border-top: 0.5em solid transparent;
-    border-right: 0.5em solid #f0f0f0;
+    border-right: 0.5em solid #2f3136;
     border-bottom: 0.5em solid transparent;
 }
 
@@ -114,21 +115,27 @@ body {
 }
 
 /* Style the user input field and send button */
-#user-input {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 0.5em;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 1em;
-    margin-right: 0.5em;
+#user-input-container {
+    background-color: #40444b;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
     padding: 0.5em;
-    width: 100%;
+}
+
+#user-input {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    flex-grow: 1;
+    margin-right: 0.5em;
 }
 
 #send-button {
-    background-color: #007aff;
+    background-color: #7289da;
     border: none;
-    border-radius: 0.5em;
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     color: #fff;
     cursor: pointer;
@@ -141,4 +148,80 @@ body {
 #send-button:focus {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transform: translateY(-0.1em);
+}
+
+/* Set up the color palette */
+:root {
+    --primary-color: #7289da;
+    --secondary-color: #fff;
+    --text-color: #fff;
+    --background-color: #36393f;
+}
+
+/* Set up the animated gradient background */
+body {
+    background: linear-gradient(to bottom right, #7289da, #2c2f33);
+    background-size: 1800% 1800%;
+    animation: gradient 120s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+/* Center align all components */
+header {
+    text-align: center;
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2em auto;
+    max-width: 800px;
+}
+
+/* Adjust spacing and padding */
+.message {
+    display: flex;
+    align-items: center;
+    margin: 0.5em 0;
+}
+
+.message.sent {
+    justify-content: flex-end;
+}
+
+.message.received {
+    justify-content: flex-start;
+}
+
+.ai-indicator {
+    margin-right: 0.5em;
+}
+
+#user-input-container {
+    margin-top: 1em;
+    width: 100%;
+}
+
+#user-input {
+    margin-right: 0.5em;
+    padding: 0.5em;
+    width: 100%;
+}
+
+#send-button {
+    margin-left: 0.5em;
+    padding: 0.5em 1em;
 }

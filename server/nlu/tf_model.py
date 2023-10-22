@@ -1,53 +1,91 @@
 import tensorflow as tf
 import openai
-import logging
-import pickle
 
 class YourTensorFlowModel:
-    def __init__(self, checkpoint_path, max_memory_size=100):
-        self.model = tf.keras.models.load_model(checkpoint_path)
+    def __init__(self):
+        # Initialize the TensorFlow model
+        self.model = ...
+
+        # Initialize the response cache and memory
         self.response_cache = {}
         self.memory = []
-        self.max_memory_size = max_memory_size
-
-        # Load the response cache if it exists
-        self.load_cached_responses()
-
-    def preprocess_input(self, user_input, memory=None):
-        # Replace with your preprocessing logic
-        # For example, tokenization, padding, and converting tokens to IDs.
-        processed_input = user_input  # This is a placeholder
-        return processed_input
-
-    def postprocess_output(self, output_tensor):
-        # Replace with your postprocessing logic
-        # For example, converting IDs to tokens and detokenization.
-        response = "Processed response"  # This is a placeholder
-        return response
 
     def generate_response(self, user_input, memory=None):
-        # Generate a response based on user input and memory
-        if user_input in self.response_cache:
-            return self.response_cache[user_input]
+        """
+        Generates a response based on the user's input and memory.
 
-        input_sequence = self.preprocess_input(user_input, memory)
-        input_tensor = tf.convert_to_tensor([input_sequence])  # Assuming model expects batched input
-        output_tensor = self.model.predict(input_tensor)
-        response = self.postprocess_output(output_tensor)
+        Args:
+            user_input (str): The user's input.
+            memory (list): A list of tuples representing previous conversation turns.
 
-        self.response_cache[user_input] = response
-        self.memory.append((user_input, response))
-        self.manage_memory()
+        Returns:
+            str: The chatbot's response.
+        """
+        # Check if the user wants to play a game
+        if "play" in user_input and ("card" in user_input or "tabletop" in user_input):
+            # Generate a game-related response
+            response = self.generate_game_response(user_input)
+        else:
+            # Generate a response based on user input and memory
+            if user_input in self.response_cache:
+                response = self.response_cache[user_input]
+            else:
+                input_sequence = self.preprocess_input(user_input, memory)
+                input_tensor = tf.convert_to_tensor([input_sequence])
+                output_tensor = self.model.predict(input_tensor)
+                response = self.postprocess_output(output_tensor)
 
+                self.response_cache[user_input] = response
+                self.memory.append((user_input, response))
+                self.manage_memory()
+
+            # Check if the response should be selected actively
+            if len(self.memory) > 1:
+                prompt = self.memory[-2][0] + " "
+                responses = [turn[1] for turn in self.memory[:-1]]
+                active_response = app.config["active_selection"](self, prompt, responses)
+                response = active_response.strip()
+
+        return response
+
+    def generate_game_response(self, user_input):
+        """
+        Generates a response related to playing a game.
+
+        Args:
+            user_input (str): The user's input.
+
+        Returns:
+            str: The chatbot's response.
+        """
+        # Replace with your game-related response generation logic
+        response = "Let's play a game!"
         return response
 
     def calculate_confidence(self, output_tensor):
+        """
+        Calculates the confidence of the model's output.
+
+        Args:
+            output_tensor (tf.Tensor): The model's output tensor.
+
+        Returns:
+            float: The confidence of the model's output.
+        """
         # Replace with your confidence calculation logic
         confidence = 0.99  # This is a placeholder
         return confidence
 
     def query_chatgpt(self, user_input):
-        # Query ChatGPT and return its response
+        """
+        Queries OpenAI's GPT-3 model and returns its response.
+
+        Args:
+            user_input (str): The user's input.
+
+        Returns:
+            str: The GPT-3 model's response.
+        """
         response = openai.Completion.create(
             engine='davinci',
             prompt=user_input,
@@ -59,52 +97,8 @@ class YourTensorFlowModel:
         return response.choices[0].text.strip()
 
     def evaluate(self, validation_data):
-        # Evaluate your model's performance
-        x_val, y_val = validation_data
-        loss, accuracy = self.model.evaluate(x_val, y_val)
-        return loss, accuracy
-
-    def handle_error(self, error):
-        logging.error(f"An error occurred: {error}")
-
-    def cache_responses(self):
-        with open('response_cache.pickle', 'wb') as f:
-            pickle.dump(self.response_cache, f)
-
-    def load_cached_responses(self):
-        try:
-            with open('response_cache.pickle', 'rb') as f:
-                self.response_cache = pickle.load(f)
-        except FileNotFoundError:
-            # No cached responses yet
-            pass
-
-    def manage_memory(self):
-        if len(self.memory) > self.max_memory_size:
-            self.memory.pop(0)  # Remove the oldest entry
-
-    def active_selection(self, user_input, memory=None, num_responses=5):
-        # Generate multiple responses and select the one with the highest score
-        responses = []
-        for i in range(num_responses):
-            if i % 2 == 0:
-                response = self.generate_response(user_input, memory)
-            else:
-                response = self.query_chatgpt(user_input)
-            score = self.calculate_confidence(response)
-            responses.append((response, score))
-        best_response = max(responses, key=lambda x: x[1])[0]
-        self.cache_responses()  # Save the response cache to disk
-        return best_response
-
-if __name__ == "__main__":
-    # Create an instance of the YourTensorFlowModel class
-    tf_model = YourTensorFlowModel(checkpoint_path="path/to/your/model")
-
-    # Prompt the user for input and generate a response
-    while True:
-        user_input = input("User: ")
-        if user_input.lower() in ["exit", "quit"]:
-            break
-        response = tf_model.active_selection(user_input)
-        print("Bot:", response)
+        """
+        Evaluates the model's performance on the validation data.
+        """
+        # Replace with your evaluation logic
+        pass

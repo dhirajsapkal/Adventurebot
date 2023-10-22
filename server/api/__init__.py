@@ -9,4 +9,12 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Initialize the chatbot model
+    from nlu.tf_model import YourTensorFlowModel
+    model = YourTensorFlowModel(checkpoint_path="path/to/checkpoint")
+
+    # Add the chatbot model to the Flask app
+    app.config["chatbot_model"] = model
+
     return app
